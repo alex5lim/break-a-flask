@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, session, redirect, url_for
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
@@ -13,7 +13,7 @@ class NameForm(FlaskForm):
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '16d297e3d27a04ab07e8c13e'
+app.config['SECRET_KEY'] = '16d297e3d27a04ab07e8c13e'  # DON'T DO THIS IN PROD
 
 bootstrap = Bootstrap(app)
 moment = Moment(app)
@@ -21,12 +21,11 @@ moment = Moment(app)
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    name = None
     form = NameForm()
     if form.validate_on_submit():
-        name = form.name.data
-        form.name.data = ''
-    return render_template('index.html', form=form, name=name,
+        session['name'] = form.name.data
+        return redirect(url_for('index'))
+    return render_template('index.html', form=form, name=session.get('name'),
                            current_time=datetime.utcnow())
 
 
