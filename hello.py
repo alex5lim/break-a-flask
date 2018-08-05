@@ -1,4 +1,7 @@
-from flask import Flask, request, render_template, session, redirect, url_for
+from flask import (
+    Flask, request, render_template, session,
+    redirect, url_for, flash
+)
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from datetime import datetime
