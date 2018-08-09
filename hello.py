@@ -10,6 +10,7 @@ from datetime import datetime
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
+from flask_migrate import Migrate
 
 
 class NameForm(FlaskForm):
@@ -28,6 +29,7 @@ app.config['SECRET_KEY'] = '16d297e3d27a04ab07e8c13e'  # DON'T DO THIS IN PROD
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+migrate = Migrate(app, db)
 
 
 class Role(db.Model):
