@@ -1,3 +1,5 @@
+import os
+from flask_sqlalchemy import SQLAlchemy
 from flask import (
     Flask, request, render_template, session,
     redirect, url_for, flash
@@ -15,8 +17,15 @@ class NameForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+basedir = os.path.abspath(os.path.dirname(__file__))
+
 app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] =\
+    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = '16d297e3d27a04ab07e8c13e'  # DON'T DO THIS IN PROD
+
+db = SQLAlchemy(app)
 
 bootstrap = Bootstrap(app)
 moment = Moment(app)
