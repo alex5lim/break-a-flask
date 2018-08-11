@@ -33,7 +33,7 @@ app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 app.config['MAIL_SUBJECT_PREFIX'] = '[Break-A-Flask]'
 app.config['MAIL_SENDER'] = os.environ.get('MAIL_SENDER')
-
+app.config['MAIL_RCPT'] = os.environ.get('MAIL_RCPT')
 
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
@@ -86,6 +86,9 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known'] = False
+            if app.config['MAIL_RCPT']:
+                send_email(app.config['MAIL_RCPT'], 'New User',
+                           'mail/new_user', user=user)
         else:
             session['known'] = True
         session['name'] = form.name.data
