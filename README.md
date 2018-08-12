@@ -1,5 +1,5 @@
 # break-a-flask
-A simple Flask app.
+A simple Flask web app. Register your name and it will say hello to you and it will send email notification to admin that you have registered.
 
 ## Environment Variables
 Define following environment variables before starting the app:
