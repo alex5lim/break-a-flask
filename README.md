@@ -1,11 +1,11 @@
 # break-a-flask
 A simple Flask app.
 
-## Environment Varialbles
+## Environment Variables
 Define following environment variables before starting the app:
 ```
-MAIL_SERVER='smtp-mail.outlook.com'
-MAIL_PORT 587
+MAIL_SERVER
+MAIL_PORT
 MAIL_USERNAME
 MAIL_PASSWORD
 MAIL_SENDER
