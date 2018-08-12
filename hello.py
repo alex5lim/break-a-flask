@@ -18,19 +18,6 @@ from threading import Thread
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] =\
-    'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = '16d297e3d27a04ab07e8c13e'  # DON'T DO THIS IN PROD
-app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER')
-app.config['MAIL_PORT'] = os.environ.get('MAIL_PORT')
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_SUBJECT_PREFIX'] = '[Break-A-Flask] '
-app.config['MAIL_SENDER'] = os.environ.get('MAIL_SENDER')
-app.config['MAIL_RCPT'] = os.environ.get('MAIL_RCPT')
-
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
