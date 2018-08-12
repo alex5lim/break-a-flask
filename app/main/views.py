@@ -1,9 +1,12 @@
 from datetime import datetime
-from flask import render_template, session, redirect, url_for, flash
+from flask import (
+    render_template, session, redirect, url_for, flash, current_app
+)
 from . import main
 from .forms import NameForm
 from .. import db
 from ..models import User
+from ..email import send_email
 
 
 @main.route('/', methods=['GET', 'POST'])
@@ -16,13 +19,18 @@ def index():
             db.session.add(user)
             db.session.commit()
             session['known'] = False
-            if app.config['MAIL_RCPT']:
-                send_email(app.config['MAIL_RCPT'], 'New User',
+            if current_app.config['MAIL_RCPT']:
+                send_email(current_app.config['MAIL_RCPT'], 'New User',
                            'mail/new_user', user=user)
         else:
             session['known'] = True
         session['name'] = form.name.data
-        return redirect(url_for('index'))
+        return redirect(url_for('.index'))
     return render_template('index.html', form=form, name=session.get('name'),
                            known=session.get('known', False),
                            current_time=datetime.utcnow())
+
+
+@main.route('/user/<name>')
+def user(name):
+    return render_template('user.html', name=name)

@@ -1,5 +1,5 @@
-from flask import render_template
-from thread import Thread
+from flask import render_template, current_app
+from threading import Thread
 from flask_mail import Message
 from . import mail
 
